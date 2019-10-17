@@ -3,6 +3,7 @@ package application;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Program {
 
@@ -12,7 +13,12 @@ public class Program {
 		Set<Integer> courseB = Courses("B",sc);
 		Set<Integer> courseC = Courses("C",sc);
 		
-		System.out.println("Total students: ");
+		Set <Integer> totalStudents = new TreeSet<>(courseA);
+		totalStudents.addAll(courseB);
+		totalStudents.addAll(courseC);
+		showStudents(totalStudents,"Students of teacher [Alex] : ");
+		
+		System.out.println("Total students: " + totalStudents.size());
 		sc.close();
 	}
 	
@@ -28,17 +34,20 @@ public class Program {
 			Integer student = sc.nextInt();
 			cSet.add(student);
 		}
-		System.out.print("Students of course [" + course + "] : [ ");
+		showStudents(cSet,"Students of course [" + course + "] : ");
+		
+		return cSet;
+	}
+	
+	public static void showStudents(Set <Integer> students, String title) {
+		System.out.print(title + "[ ");
 		int cont = 1;
-		for (Integer s : cSet) {
+		for (Integer s : students) {
 			System.out.print((cont > 1) ? " - ":"");
 			cont++;
 			System.out.print(s);
 		}
 		System.out.println(" ]");
 		System.out.println();
-		
-		return cSet;
 	}
-
 }
